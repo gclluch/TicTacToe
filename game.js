@@ -16,6 +16,7 @@ $(".cell").on("click", function(event) {
     if (checkWin(board, human) || checkDraw(board)) endGame(human);
     else {
       turn(minimax(board, ai).pos, ai);
+      console.log( checkDraw(board));
       if (checkWin(board, ai) || checkDraw(board)) endGame(ai);
     }
   }
@@ -40,9 +41,9 @@ function checkDraw(board) {
 }
 
 function endGame(player) {
-  if (player === ai || checkWin(board, ai)) $("h1").text("You lose.");
-  // if (player === human || checkWin(board, human))$("h1").text("You win!"); else //should be unreachable
-  else $("h1").text("Draw!");
+  if (checkDraw(board)) $("h1").text("Draw!");
+  else if (player === ai) $("h1").text("You lose.");
+  else $("h1").text("You win!"); //should be unreachable
 }
 
 function copyBoard(board) {
@@ -57,31 +58,35 @@ function minimax(board, player) {
 
   let playableMoves = getPlayableMoves(board);
   var moves = [];
-  let best = {score: player*-11};
-
-  for (let i=0; i<playableMoves.length; i++) {
+  for (let playable of playableMoves) {
     var move = {};
-    move.pos = playableMoves[i];
+    move.pos = playable;
     board[move.pos] = player;
-
-    if (player === ai)
-      move.score = minimax(board, human).score;
-    else
-      move.score =  minimax(board, ai).score;
+    move.score =  minimax(board, -player).score;
     board[move.pos] = 0;
-
-    if (-player*move.score === 10)
+    if (player*move.score === -10)
       return move;
-    else {
-      if (player === ai) {
-        if (move.score > best.score)
-          best.score = move.score;
-          best.pos = move.pos;
-        }
-      else
-        if (move.score < best.score);
-        best.score = move.score;
-        best.pos = move.pos;}
+    else
+      moves.push(move);
   }
-  return best;
+
+  let bestMove, bestScore;
+  if (player === ai) {
+    bestScore = -1000;
+    for (let move of moves) {
+      if (move.score > bestScore) {
+        bestScore = move.score;
+        bestMove = move;
+      }
+    }
+  } else {
+      bestScore = 1000;
+      for (let move of moves) {
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = move;
+        }
+      }
+  }
+  return bestMove;
 }
