@@ -17,7 +17,6 @@ $(".cell").on("click", function(event) {
     if (checkWin(board, human) || checkDraw(board)) endGame(human);
     else {
       turn(minimax(board, ai).pos, ai);
-      console.log( checkDraw(board));
       if (checkWin(board, ai) || checkDraw(board)) endGame(ai);
     }
   }
