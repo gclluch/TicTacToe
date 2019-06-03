@@ -1,5 +1,6 @@
 //jshint esversion: 6
 let board = new Array(9).fill(0);
+let gameStarted = 1;
 let human = 1;
 let ai = -1;
 const winConditions = [
@@ -11,7 +12,7 @@ const winConditions = [
 
 $(".cell").on("click", function(event) {
   let cell = event.target.id;
-  if (!board[cell]) {
+  if (!board[cell] && gameStarted) {
     turn(cell, human);
     if (checkWin(board, human) || checkDraw(board)) endGame(human);
     else {
@@ -43,7 +44,7 @@ function checkDraw(board) {
 function endGame(player) {
   if (player === ai) $("h1").text("You lose."); else
   if (checkDraw(board)) $("h1").text("Draw!");
-
+  gameStarted = 0;
   setTimeout(function() {
     $(".game-board").hide();
     $(".play-again").css("display", "block");
@@ -57,6 +58,7 @@ $(".play-again").on("click", function(event) {
   $(".game-board").show();
   $(".play-again").css("display", "none");
   $("h1").text("Tic Tac Toe");
+  gameStarted = 1;
 });
 
 function minimax(board, player) {
