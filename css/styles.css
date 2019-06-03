@@ -1,7 +1,8 @@
 
 body {
-  font-family: 'Press Start 2P', cursive;
-  background-color: #e8e8e8;
+  font-family: 'Roboto', sans-serif;
+  color: #f6f5f5;
+  background-color: #33313b;
   text-align: center;
 
 }
@@ -11,23 +12,33 @@ h3 {
   margin: 0 0 4%;
 }
 
+p {
+  /* font-size: 3rem; */
+  margin: 3% 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .title {
   margin: 3% 0 2%;
-  /* font-size: 3.5rem; */
+  font-size: 3.8rem;
 }
 
 .game-board {
   width: 600px;
   height: 600px;
-  color: #e8e8e8;
+  color: #33313b;
   margin: auto;
   display: grid;
   grid-template: repeat(3, 1fr) / repeat(3, 1fr);
 }
 
 .cell {
-  border: 6px solid #2c3e50;
-  background-color: #5588a3;
+  border: 6px solid #33313b;
+  background-color: #f6f5f5;
   border-radius: 10%;
   /* font-family: Helvetica; */
   font-family: 'Baloo Bhai', cursive;
@@ -36,4 +47,16 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.play-again {
+  display: none;
+}
+
+.btn, .btn:hover {
+  font-family: 'Roboto', sans-serif;
+  font-size: 12rem;
+  color: #33313b;
+  width: 600px;
+  height: 600px;
 }

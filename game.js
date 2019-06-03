@@ -41,15 +41,23 @@ function checkDraw(board) {
 }
 
 function endGame(player) {
+  if (player === ai) $("h1").text("You lose."); else
   if (checkDraw(board)) $("h1").text("Draw!");
-  else if (player === ai) $("h1").text("You lose.");
-  else $("h1").text("You win!"); //should be unreachable
+
+  setTimeout(function() {
+    $(".game-board").hide();
+    $(".play-again").css("display", "block");
+  }, 1300);
+
 }
 
-function copyBoard(board) {
-    return [...board];
-}
-
+$(".play-again").on("click", function(event) {
+  board = new Array(9).fill(0);
+  $(".cell").text("");
+  $(".game-board").show();
+  $(".play-again").css("display", "none");
+  $("h1").text("Tic Tac Toe");
+});
 
 function minimax(board, player) {
   if (checkDraw(board)) return {score: 0}; else
