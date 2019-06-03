@@ -61,11 +61,12 @@ $(".play-again").on("click", function(event) {
 });
 
 function minimax(board, player) {
-  if (checkDraw(board)) return {score: 0}; else
-  if (checkWin(board, ai)) return {score: 10}; else
-  if (checkWin(board, human)) return {score: -10};
-
   let playableMoves = getPlayableMoves(board);
+
+  if (checkWin(board, ai)) return {score: 10}; else
+  if (checkWin(board, human)) return {score: -10}; else
+  if (!playableMoves.length) return {score: 0};
+
   var moves = [];
   for (let playable of playableMoves) {
     var move = {};
